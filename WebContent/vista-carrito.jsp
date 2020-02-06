@@ -22,7 +22,11 @@
 		<ul>
 			<c:forEach var="par" items="${paresCarrito}">
 				<tr>
-					<li>${par.key}- ${par.value}</li>
+					<li>${par.key}-${par.value}</li>
+					<li><a
+						href="ServletBorrarProducto?producto=<c:out value="${par.key}"/>"
+						class="btn btn-default"> <c:out value="Borrar Producto" />
+					</a></li>
 				</tr>
 			</c:forEach>
 		</ul>
