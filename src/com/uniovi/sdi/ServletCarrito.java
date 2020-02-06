@@ -28,31 +28,25 @@ public class ServletCarrito extends HttpServlet {
 		if (producto != null) {
 			insertarEnCarrito(carrito, producto);
 		}
-		response.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<HTML>");
-		out.println("<HEAD><TITLE>Tienda SDI: carrito</TITLE></HEAD>");
-		out.println("<BODY>");
-		out.println(carritoEnHTML(carrito) + "<br>");
-		out.println("<a href=\"index.jsp\">Volver</a></BODY></HTML>");
+		// Retornar la vista con parámetro "carrito"
+		request.setAttribute("paresCarrito", carrito);
+		getServletContext().getRequestDispatcher("/vista-carrito.jsp").forward(request, response);
 	}
-	
-	private void insertarEnCarrito(Map<String,Integer> carrito, String claveProducto) {
-		if(carrito.get(claveProducto) == null) {
+
+	private void insertarEnCarrito(Map<String, Integer> carrito, String claveProducto) {
+		if (carrito.get(claveProducto) == null) {
 			carrito.put(claveProducto, new Integer(1));
-		}
-		else {
-			int numeroArticulos = (Integer)carrito.get(claveProducto).intValue();
-			carrito.put(claveProducto, new Integer(numeroArticulos+1));
+		} else {
+			int numeroArticulos = (Integer) carrito.get(claveProducto).intValue();
+			carrito.put(claveProducto, new Integer(numeroArticulos + 1));
 		}
 	}
-	
-	private String carritoEnHTML(Map<String,Integer> carrito) {
-		String carritoEnHTML ="";
-		
-		for (String key:carrito.keySet()) {
-			carritoEnHTML+="<p>["+key+"], "+carrito.get(key)+" unidades</p>";
+
+	private String carritoEnHTML(Map<String, Integer> carrito) {
+		String carritoEnHTML = "";
+
+		for (String key : carrito.keySet()) {
+			carritoEnHTML += "<p>[" + key + "], " + carrito.get(key) + " unidades</p>";
 		}
 		return carritoEnHTML;
 	}
