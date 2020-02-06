@@ -20,8 +20,10 @@
 	<c:if test="${sessionScope.usuario != 'admin'}">
 		<c:redirect url="/login.jsp" />
 	</c:if>
+	
 	<jsp:useBean id="producto" class="com.uniovi.sdi.Producto" />
 	<jsp:setProperty name="producto" property="*" />
+	
 	<c:if test="${producto.nombre != null}">
 		<jsp:useBean id="productosService"
 			class="com.uniovi.sdi.ProductosService" />
@@ -29,6 +31,7 @@
 			value="${producto}" />
 		<c:redirect url="/index.jsp" />
 	</c:if>
+	
 	<!-- Contenido -->
 	<div class="container" id="contenedor-principal">
 		<h2>Agregar producto a la tienda</h2>
